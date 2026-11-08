@@ -1,0 +1,1891 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: uv
+description: An extremely fast Python package manager.
+flags:
+  -V, --version: Display the uv version
+persistentflags:
+  --allow-insecure-host=*: Allow insecure connections to a host
+  --allow-python-downloads&: 'Allow automatically downloading Python when required. [env: "UV_PYTHON_DOWNLOADS=auto"]'
+  --cache-dir=: Path to the cache directory
+  --color=: Control the use of color in output
+  --config-file=: The path to a `uv.toml` file to use for configuration
+  --directory=: Change to the given directory prior to running the command
+  --isolated&: 'Avoid discovering a `pyproject.toml` or `uv.toml` file [env: UV_ISOLATED=]'
+  --managed-python: 'Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]'
+  --native-tls&: '(Deprecated: use `--system-certs` instead.) Whether to load TLS certificates from the platform''s native certificate store [env: UV_NATIVE_TLS=]'
+  --no-cache-dir&: Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation
+  --no-color&: Disable colors
+  --no-config: Avoid discovering configuration files (`pyproject.toml`, `uv.toml`)
+  --no-installer-metadata&: 'Skip writing `uv` installer metadata files (e.g., `INSTALLER`, `REQUESTED`, and `direct_url.json`) to site-packages `.dist-info` directories [env: UV_NO_INSTALLER_METADATA=]'
+  --no-managed-python: 'Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]'
+  --no-native-tls&: ""
+  --no-offline&: ""
+  --no-preview&: ""
+  --no-progress: 'Hide all progress outputs [env: UV_NO_PROGRESS=]'
+  --no-python-downloads: 'Disable automatic downloads of Python. [env: "UV_PYTHON_DOWNLOADS=never"]'
+  --no-system-certs&: ""
+  --offline: 'Disable network access [env: UV_OFFLINE=]'
+  --preview&: 'Whether to enable all experimental preview features [env: UV_PREVIEW=]'
+  --preview-feature=*&: Enable experimental preview features
+  --preview-features=*&: Enable experimental preview features
+  --project=: Discover a project in the given directory
+  --python-fetch=&: Deprecated version of [`Self::python_downloads`]
+  --python-preference=&: ""
+  --show-settings&: Show the resolved settings for the current command
+  --system-certs: 'Whether to load TLS certificates from the platform''s native certificate store [env: UV_SYSTEM_CERTS=]'
+  --trusted-host=*&: Allow insecure connections to a host
+  -h, --help: Display the concise help for this command
+  -n, --no-cache: Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation
+  -q, --quiet*: Use quiet output
+  -v, --verbose*: Use verbose output
+commands:
+  - name: add
+    description: Add dependencies to the project
+    flags:
+      --active: Prefer the active virtual environment over the project's virtual environment
+      --binary&: ""
+      --bounds=: The kind of version specifier to use when adding dependencies
+      --branch=: Branch to use when adding a dependency from Git
+      --build&: ""
+      --build-isolation&: ""
+      --compile&: Compile Python files to bytecode after installation
+      --compile-bytecode: Compile Python files to bytecode after installation
+      --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --constraint=*&: Constrain versions using the given requirements files
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev: 'Add the requirements to the development dependency group [env: UV_DEV=]'
+      --editable: Add the requirements as editable
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --extra=*: Extras to enable for the dependency
+      --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Add dependencies without re-locking the project [env: UV_FROZEN=]'
+      --group=: Add the requirements to the specified dependency group
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --lfs: Whether to use Git LFS when adding a dependency from Git
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-active&: Prefer project's virtual environment over an active environment
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-compile&: ""
+      --no-compile-bytecode&: ""
+      --no-editable&: 'Don''t add the requirements as editable [env: UV_NO_EDITABLE=]'
+      --no-editable-package=*&: Don't add the specified requirements as editable
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-install-local: 'Do not install local path dependencies [env: UV_NO_INSTALL_LOCAL=]'
+      --no-install-package=*: Do not install the given package(s)
+      --no-install-project: 'Do not install the current project [env: UV_NO_INSTALL_PROJECT=]'
+      --no-install-workspace: 'Do not install any workspace members, including the current project [env: UV_NO_INSTALL_WORKSPACE=]'
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-refresh&: ""
+      --no-reinstall&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-sync: 'Avoid syncing the virtual environment [env: UV_NO_SYNC=]'
+      --no-upgrade&: ""
+      --no-workspace: Don't add the dependency as a workspace member
+      --only-install-local&: Only install local path dependencies
+      --only-install-package=*&: Only install the given package(s)
+      --only-install-project&: Only install the current project
+      --only-install-workspace&: Only install workspace members, including the current project
+      --optional=: Add the requirements to the package's optional dependencies for the specified extra
+      --package=: Add the dependency to a specific package in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --raw: Add a dependency as provided
+      --raw-sources&: Add a dependency as provided
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+      --requirement=*&: Add the packages listed in the given files
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --rev=: Commit to use when adding a dependency from Git
+      --script=: Add the dependency to the specified Python script, rather than to a project
+      --tag=: Tag to use when adding a dependency from Git
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      --workspace: Add the dependency as a workspace member
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -c, --constraints=*: Constrain versions using the given requirements files
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -m, --marker=: Apply this marker to all added packages
+      -p, --python=: The Python interpreter to use for resolving and syncing.
+      -r, --requirements=*: Add the packages listed in the given files
+  - name: audit
+    description: Audit the project's dependencies
+    flags:
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Audit the requirements without locking the project [env: UV_FROZEN=]'
+      --ignore-until-fixed=*: Ignore a vulnerability by ID, but only while no fix is available
+      --ignore=*: Ignore a vulnerability by ID
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-default-groups: Don't audit the default dependency groups
+      --no-dev: 'Don''t audit the development dependency group [env: UV_NO_DEV=]'
+      --no-extra=*: Don't audit the specified optional dependencies
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-group=*: 'Don''t audit the specified dependency group [env: `UV_NO_GROUP`=]'
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-upgrade&: ""
+      --only-dev: Only audit the development dependency group
+      --only-group=*: Only audit dependencies from the specified dependency group
+      --output-format=:
+        description: Select the output format
+        default: text
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --python-platform=: The platform to use when auditing
+      --python-version=: The Python version to use when auditing
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --script=: Audit the specified PEP 723 Python script, rather than the current project
+      --service-format=:
+        description: The service format to use for vulnerability lookups
+        default: osv
+      --service-url=: The URL to vulnerability service API endpoint
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+  - name: auth
+    description: Manage authentication
+    commands:
+      - name: dir
+        description: Show the path to the uv credentials directory
+      - name: helper
+        description: Act as a credential helper for external tools
+        hidden: true
+        flags:
+          --protocol=!: The credential helper protocol to use
+        commands:
+          - name: get
+            description: Retrieve credentials for a URI
+      - name: login
+        description: Login to a service
+        flags:
+          --keyring-provider=: The keyring provider to use for storage of credentials
+          --password=: The password to use for the service
+          -t, --token=: The token to use for the service
+          -u, --username=: The username to use for the service
+      - name: logout
+        description: Logout of a service
+        flags:
+          --keyring-provider=: The keyring provider to use for storage of credentials
+          -u, --username=: The username to logout
+      - name: token
+        description: Show the authentication token for a service
+        flags:
+          --keyring-provider=: The keyring provider to use for reading credentials
+          -u, --username=: The username to lookup
+  - name: build
+    description: Build Python packages into source distributions and wheels
+    flags:
+      --all&: Builds all packages in the workspace
+      --all-packages: Builds all packages in the workspace
+      --binary&: ""
+      --build&: ""
+      --build-constraint=*&: Constrain build dependencies using the given requirements files when building distributions
+      --build-isolation&: ""
+      --build-logs&: ""
+      --clear: Clear the output directory before the build, removing stale artifacts
+      --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --create-gitignore&: ""
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --force-pep517: Always build through PEP 517, don't use the fast path for the uv build backend
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --list&: When using the uv build backend, list the files that would be included when building
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-logs: Hide logs from the build backend
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-create-gitignore: Do not create a `.gitignore` file in the output directory
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-refresh&: ""
+      --no-require-hashes&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-upgrade&: ""
+      --no-verify-hashes: Disable validation of hashes in the requirements file
+      --package=: Build a specific package in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --require-hashes: Require a matching hash for each requirement
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --sdist: Build a source distribution ("sdist") from the given directory
+      --skip-dependency-check&: Skip checking if build dependencies are satisfied when building without isolation
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      --verify-hashes&: ""
+      --wheel: Build a binary distribution ("wheel") from the given directory
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building distributions
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -o, --out-dir=: The output directory to which distributions should be written
+      -p, --python=: The Python interpreter to use for the build environment.
+  - name: build-backend
+    description: The implementation of the build backend
+    hidden: true
+    commands:
+      - name: build-editable
+        description: PEP 660 hook `build_editable`
+        flags:
+          --metadata-directory=: ""
+      - name: build-sdist
+        description: PEP 517 hook `build_sdist`
+      - name: build-wheel
+        description: PEP 517 hook `build_wheel`
+        flags:
+          --metadata-directory=: ""
+      - name: get-requires-for-build-editable
+        description: PEP 660 hook `get_requires_for_build_editable`
+      - name: get-requires-for-build-sdist
+        description: PEP 517 hook `get_requires_for_build_sdist`
+      - name: get-requires-for-build-wheel
+        description: PEP 517 hook `get_requires_for_build_wheel`
+      - name: prepare-metadata-for-build-editable
+        description: PEP 660 hook `prepare_metadata_for_build_editable`
+      - name: prepare-metadata-for-build-wheel
+        description: PEP 517 hook `prepare_metadata_for_build_wheel`
+  - name: cache
+    description: Manage uv's cache
+    commands:
+      - name: clean
+        aliases:
+          - clear
+        description: Clear the cache, removing all entries or those linked to specific packages
+        flags:
+          --force: Force removal of the cache, ignoring in-use checks
+      - name: dir
+        description: Show the cache directory
+      - name: prune
+        description: Prune dangling cache entries and cached environments
+        flags:
+          --ci: Optimize the cache for persistence in a continuous integration environment, like GitHub Actions
+          --force: Force removal of the cache, ignoring in-use checks
+      - name: size
+        description: Show the cache size
+        flags:
+          --human-readable&: Display the cache size in human-readable format (e.g., `1.2GiB` instead of raw bytes)
+          --output-format=:
+            description: Select the output format
+            default: auto
+          -H, --human: Display the cache size in human-readable format (e.g., `1.2GiB` instead of raw bytes)
+  - name: check
+    description: Run checks on the project
+    flags:
+      --all-extras: Include all optional dependencies
+      --all-groups: Include dependencies from all dependency groups
+      --all-packages: Check all packages in the workspace
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --compile&: Compile Python files to bytecode after installation
+      --compile-bytecode: Compile Python files to bytecode after installation
+      --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev&: 'Include the development dependency group [env: UV_DEV=]'
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --extra=*: Include optional dependencies from the specified extra name
+      --fix: Apply safe fixes to resolve type-checking errors
+      --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Sync without updating the `uv.lock` file [env: UV_FROZEN=]'
+      --group=*: Include dependencies from the specified dependency group
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --isolated: 'Run checks without mutating project state [env: UV_ISOLATED=]'
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-all-extras&: ""
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-compile&: ""
+      --no-compile-bytecode&: ""
+      --no-default-groups: Ignore the default dependency groups
+      --no-dev: 'Disable the development dependency group [env: UV_NO_DEV=]'
+      --no-extra=*: Exclude the specified optional dependencies, if `--all-extras` is supplied
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-group=*: 'Disable the specified dependency group [env: `UV_NO_GROUP`=]'
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-install-project: 'Do not install the current project [env: UV_NO_INSTALL_PROJECT=]'
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-project: Avoid discovering a project or workspace
+      --no-refresh&: ""
+      --no-reinstall&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-sync: 'Avoid syncing the virtual environment [env: UV_NO_SYNC=]'
+      --no-upgrade&: ""
+      --only-dev: Only include the development dependency group
+      --only-group=*: Only include dependencies from the specified dependency group
+      --package=*: Check specific packages in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --script=: Run checks for the specified PEP 723 Python script, rather than the current project
+      --show-command&: Display the ty command that will be used for type checking
+      --show-version&: Display the version of ty that will be used for type checking
+      --ty-version=: The version of ty to use for type checking
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use for the project environment
+  - name: clean
+    description: Clear the cache, removing all entries or those linked to specific packages
+    hidden: true
+    flags:
+      --force: Force removal of the cache, ignoring in-use checks
+  - name: export
+    description: Export the project's lockfile to an alternate format
+    flags:
+      --all-extras: Include all optional dependencies
+      --all-groups: Include dependencies from all dependency groups
+      --all-packages: Export the entire workspace
+      --annotate&: ""
+      --batch=&: Export multiple selections from a TOML manifest containing `[[export]]` entries
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev&: 'Include the development dependency group [env: UV_DEV=]'
+      --editable&: Export any non-editable dependencies, including the project and any workspace members, as editable
+      --emit-find-links: Include `--find-links` entries in the generated output file
+      --emit-index-url: Include `--index-url` and `--extra-index-url` entries in the generated output file
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --extra=*: Include optional dependencies from the specified extra name
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --format=: The format to which `uv.lock` should be exported
+      --frozen: 'Do not update the `uv.lock` before exporting [env: UV_FROZEN=]'
+      --group=*: Include dependencies from the specified dependency group
+      --hashes&: Include hashes for all dependencies
+      --header&: ""
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-all-extras&: ""
+      --no-annotate: Exclude comment annotations indicating the source of each package
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-default-groups: Ignore the default dependency groups
+      --no-dev: 'Disable the development dependency group [env: UV_NO_DEV=]'
+      --no-editable: 'Export any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]'
+      --no-editable-package=*: Export the specified editable packages as non-editable
+      --no-emit-find-links&: ""
+      --no-emit-index-url&: ""
+      --no-emit-local: Do not include local path dependencies in the exported requirements
+      --no-emit-package=*: Do not emit the given package(s)
+      --no-emit-project: Do not emit the current project
+      --no-emit-workspace: Do not emit any workspace members, including the root project
+      --no-extra=*: Exclude the specified optional dependencies, if `--all-extras` is supplied
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-group=*: 'Disable the specified dependency group [env: `UV_NO_GROUP`=]'
+      --no-hashes: Omit hashes in the generated output
+      --no-header: Exclude the comment header at the top of the generated output file
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-install-local&: Do not include local path dependencies in the exported requirements
+      --no-install-package=*&: Do not emit the given package(s)
+      --no-install-project&: Do not emit the current project
+      --no-install-workspace&: Do not emit any workspace members, including the root project
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-refresh&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-upgrade&: ""
+      --only-dev: Only include the development dependency group
+      --only-emit-local&: Only include local path dependencies in the exported requirements
+      --only-emit-package=*&: Only emit the given package(s)
+      --only-emit-project&: Only emit the current project
+      --only-emit-workspace&: Only emit workspace members, including the root project
+      --only-group=*: Only include dependencies from the specified dependency group
+      --only-install-local&: Only include local path dependencies in the exported requirements
+      --only-install-package=*&: Only emit the given package(s)
+      --only-install-project&: Only emit the current project
+      --only-install-workspace&: Only emit workspace members, including the root project
+      --package=*: Export the dependencies for specific packages in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --prune=*: Prune the given package from the dependency tree
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --script=: Export the dependencies for the specified PEP 723 Python script, rather than the current project
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -o, --output-file=: Write the exported requirements to the given file
+      -p, --python=: The Python interpreter to use during resolution.
+  - name: format
+    description: Format Python code in the project
+    flags:
+      --check: Check if files are formatted without applying changes
+      --diff: Show a diff of formatting changes without applying them
+      --exclude-newer=: Limit candidate Ruff versions to those released prior to the given date
+      --no-project: Avoid discovering a project or workspace
+      --show-version&: Display the version of Ruff that will be used for formatting
+      --version=: The version of Ruff to use for formatting
+  - name: generate-shell-completion
+    aliases:
+      - --generate-shell-completion
+    description: Generate shell completion
+    hidden: true
+    flags:
+      --cache-dir=&: ""
+      --color=&: ""
+      --config-file=&: ""
+      --native-tls&: ""
+      --no-config&: ""
+      --no-progress&: ""
+      --no-python-downloads&: ""
+      --offline&: ""
+      --python-preference=&: ""
+      -V, --version&: ""
+      -h, --help&: ""
+      -n, --no-cache&: ""
+      -q, --quiet*&: ""
+      -v, --verbose*&: ""
+  - name: help
+    description: Display documentation for a command
+    flags:
+      --no-pager: Disable pager when printing help
+  - name: init
+    description: Create a new project
+    flags:
+      --app: Create a project for an application
+      --application&: Create a project for an application
+      --author-from=: Fill in the `authors` field in the `pyproject.toml`
+      --backend&: Invalid option name for build backend
+      --bare: Only create a `pyproject.toml`
+      --build-backend=: Initialize a build-backend of choice for the project
+      --description=: Set the project description
+      --lib: Create a project for a library
+      --library&: Create a project for a library
+      --name=: The name of the project
+      --no-description: Disable the description for the project
+      --no-package: Do not set up the project to be built as a Python package
+      --no-pin-python: Do not create a `.python-version` file for the project
+      --no-project&: Avoid discovering a workspace and create a standalone project
+      --no-readme: Do not create a `README.md` file
+      --no-workspace: Avoid discovering a workspace and create a standalone project
+      --package: Set up the project to be built as a Python package
+      --pin-python&: Create a `.python-version` file for the project
+      --script: Create a script
+      --vcs=: Initialize a version control system for the project
+      --virtual&: Create a virtual project, rather than a package
+      -p, --python=: The Python interpreter to use to determine the minimum supported Python version.
+  - name: lock
+    description: Update the project's lockfile
+    flags:
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --check: Check if the lockfile is up-to-date
+      --check-exists: 'Assert that a `uv.lock` exists without checking if it is up-to-date [env: UV_FROZEN=]'
+      --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dry-run: Perform a dry run, without writing the lockfile
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen&: Equivalent to `--check-exists`
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked&: 'Check if the lockfile is up-to-date [env: UV_LOCKED=]'
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-refresh&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-upgrade&: ""
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --script=: Lock the specified Python script, rather than the current project
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use during resolution.
+  - name: pip
+    description: Manage Python packages with a pip-compatible interface
+    persistentflags:
+      --cert=: Path to a PEM-encoded CA certificate bundle
+    commands:
+      - name: check
+        description: Verify installed packages have compatible dependencies
+        flags:
+          --no-system&: ""
+          --python-platform=: The platform for which packages should be checked
+          --python-version=: The Python version against which packages should be checked
+          --system: Check packages in the system Python environment
+          -p, --python=: The Python interpreter for which packages should be checked.
+      - name: compile
+        description: Compile a `requirements.in` file to a `requirements.txt` or `pylock.toml` file
+        flags:
+          --all-extras: Include all optional dependencies
+          --allow-unsafe&: ""
+          --annotate&: ""
+          --annotation-style=: The style of the annotation comments included in the output file, used to indicate the source of each package
+          --build&: ""
+          --build-constraint=*&: Constrain build dependencies using the given requirements files when building source distributions
+          --build-isolation&: ""
+          --client-cert=&: ""
+          --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --config=&: ""
+          --constraint=*&: Constrain versions using the given requirements files
+          --custom-compile-command=: The header comment to include at the top of the output file generated by `uv pip compile`
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --deps&: ""
+          --emit-build-options: Include `--no-binary` and `--only-binary` entries in the generated output file
+          --emit-find-links: Include `--find-links` entries in the generated output file
+          --emit-index-annotation: Include comment annotations indicating the index used to resolve each package (e.g., `# from https://pypi.org/simple`)
+          --emit-index-url: Include `--index-url` and `--extra-index-url` entries in the generated output file
+          --emit-marker-expression&: Whether to emit a marker string indicating when it is known that the resulting set of pinned dependencies is valid
+          --emit-options&: ""
+          --emit-trusted-host&: ""
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --exclude=*&: Exclude packages from resolution using the given requirements files
+          --excludes=*: Exclude packages from resolution using the given requirements files
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --extra=*: Include optional dependencies from the specified extra name; may be provided more than once
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --format=: The format in which the resolution should be output
+          --generate-hashes: Include distribution hashes in the output file
+          --group=*: Install the specified dependency group from a `pyproject.toml`
+          --header&: ""
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --link-mode=: The method to use when installing packages from the global cache
+          --max-rounds=&: ""
+          --no-all-extras&: ""
+          --no-allow-unsafe&: ""
+          --no-annotate: Exclude comment annotations indicating the source of each package
+          --no-binary=*: Don't install pre-built wheels
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-config&: ""
+          --no-deps: Ignore package dependencies, instead only add those packages explicitly listed on the command line to the resulting requirements file
+          --no-emit-build-options&: ""
+          --no-emit-find-links&: ""
+          --no-emit-index-annotation&: ""
+          --no-emit-index-url&: ""
+          --no-emit-marker-expression&: ""
+          --no-emit-options&: ""
+          --no-emit-package=*: Specify a package to omit from the output resolution. Its dependencies will still be included in the resolution. Equivalent to pip-compile's `--unsafe-package` option
+          --no-emit-trusted-host&: ""
+          --no-generate-hashes&: ""
+          --no-header: Exclude the comment header at the top of the generated output file
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-refresh&: ""
+          --no-reuse-hashes&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-strip-extras: Include extras in the output file
+          --no-strip-markers: Include environment markers in the output file
+          --no-system&: ""
+          --no-universal&: ""
+          --no-upgrade&: ""
+          --only-binary=*: Only use pre-built wheels; don't build source distributions
+          --override=*&: Override versions using the given requirements files
+          --overrides=*: Override versions using the given requirements files
+          --pip-args=&: ""
+          --pre&: ""
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --python-platform=: The platform for which requirements should be resolved
+          --python-version=: The Python version to use for resolution
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --resolver=&: ""
+          --reuse-hashes&: ""
+          --strip-extras&: ""
+          --strip-markers&: ""
+          --system: Install packages into the system Python environment
+          --torch-backend=: The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`)
+          --universal: Perform a universal resolution, attempting to generate a single `requirements.txt` output file that is compatible with all operating systems, architectures, and Python implementations
+          --unsafe-package=*&: Specify a package to omit from the output resolution. Its dependencies will still be included in the resolution. Equivalent to pip-compile's `--unsafe-package` option
+          --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building source distributions
+          -c, --constraints=*: Constrain versions using the given requirements files
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -o, --output-file=: Write the compiled requirements to the given `requirements.txt` or `pylock.toml` file
+          -p, --python=: The Python interpreter to use during resolution.
+      - name: debug
+        description: Display debug information (unsupported)
+        hidden: true
+        flags:
+          --abi=&: ""
+          --implementation=&: ""
+          --platform=&: ""
+          --python-version=&: ""
+      - name: freeze
+        description: List, in requirements format, packages installed in an environment
+        flags:
+          --disable-pip-version-check&: ""
+          --exclude-editable: Exclude any editable packages from output
+          --exclude=*: Exclude the specified package(s) from the output
+          --no-strict&: ""
+          --no-system&: ""
+          --path=*: Restrict to the specified installation path for listing packages (can be used multiple times)
+          --prefix=: List packages from the specified `--prefix` directory
+          --strict: Validate the Python environment, to detect packages with missing dependencies and other issues
+          --system: List packages in the system Python environment
+          -p, --python=: The Python interpreter for which packages should be listed.
+          -t, --target=: List packages from the specified `--target` directory
+      - name: install
+        description: Install packages into an environment
+        flags:
+          --all-extras: Include all optional dependencies
+          --break-system-packages: Allow uv to modify an `EXTERNALLY-MANAGED` Python installation
+          --build&: ""
+          --build-constraint=*&: Constrain build dependencies using the given requirements files when building source distributions
+          --build-isolation&: ""
+          --check: Check whether the environment satisfies the requirements without modifying it
+          --compile&: Compile Python files to bytecode after installation
+          --compile-bytecode: Compile Python files to bytecode after installation
+          --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --constraint=*&: Constrain versions using the given requirements files
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --deps&: ""
+          --disable-pip-version-check&: ""
+          --dry-run: Perform a dry run, i.e., don't actually install anything but resolve the dependencies and print the resulting plan
+          --exact: Perform an exact sync, removing extraneous packages
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --exclude=*&: Exclude packages from resolution using the given requirements files
+          --excludes=*: Exclude packages from resolution using the given requirements files
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --extra=*: Include optional dependencies from the specified extra name; may be provided more than once
+          --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --group=*: Install the specified dependency group from a `pylock.toml` or `pyproject.toml`
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --inexact&: Do not remove extraneous packages present in the environment
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --link-mode=: The method to use when installing packages from the global cache
+          --no-all-extras&: ""
+          --no-binary=*: Don't install pre-built wheels
+          --no-break-system-packages: ""
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-deps: Ignore package dependencies, instead only installing those packages explicitly listed on the command line or in the requirements files
+          --no-editable: 'Install any editable dependencies as non-editable [env: UV_NO_EDITABLE=]'
+          --no-editable-package=*: Install the specified editable packages as non-editable
+          --no-exact&: Do not remove extraneous packages present in the environment
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-refresh&: ""
+          --no-reinstall&: ""
+          --no-require-hashes&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-strict&: ""
+          --no-system&: ""
+          --no-upgrade&: ""
+          --no-verify-hashes: Disable validation of hashes in the requirements file
+          --only-binary=*: Only use pre-built wheels; don't build source distributions
+          --output-format=:
+            description: Select the output format
+            default: text
+          --override=*&: Override versions using the given requirements files
+          --overrides=*: Override versions using the given requirements files
+          --pre&: ""
+          --prefix=: Install packages into `lib`, `bin`, and other top-level folders under the specified directory, as if a virtual environment were present at that location
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --python-platform=: The platform for which requirements should be installed
+          --python-version=: The minimum Python version that should be supported by the requirements (e.g., `3.7` or `3.7.9`)
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+          --require-hashes: Require a matching hash for each requirement
+          --requirement=*&: Install the packages listed in the given files
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --strict: Validate the Python environment after completing the installation, to detect packages with missing dependencies or other issues
+          --system: Install packages into the system Python environment
+          --torch-backend=: The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`)
+          --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          --user: ""
+          --verify-hashes&: ""
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building source distributions
+          -c, --constraints=*: Constrain versions using the given requirements files
+          -e, --editable=*: Install the editable package based on the provided local file path
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter into which packages should be installed.
+          -r, --requirements=*: Install the packages listed in the given files
+          -t, --target=: Install packages into the specified directory, rather than into the virtual or system Python environment. The packages will be installed at the top-level of the directory
+      - name: list
+        aliases:
+          - ls
+        description: List, in tabular format, packages installed in an environment
+        flags:
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --disable-pip-version-check&: ""
+          --exclude-editable: Exclude any editable packages from output
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --exclude=*: Exclude the specified package(s) from the output
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --format=:
+            description: Select the output format
+            default: columns
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-outdated&: ""
+          --no-strict&: ""
+          --no-system&: ""
+          --outdated: List outdated packages
+          --prefix=: List packages from the specified `--prefix` directory
+          --strict: Validate the Python environment, to detect packages with missing dependencies and other issues
+          --system: List packages in the system Python environment
+          -e, --editable: Only include editable projects
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter for which packages should be listed.
+          -t, --target=: List packages from the specified `--target` directory
+      - name: show
+        description: Show information about one or more installed packages
+        flags:
+          --disable-pip-version-check&: ""
+          --no-strict&: ""
+          --no-system&: ""
+          --prefix=: Show a package from the specified `--prefix` directory
+          --strict: Validate the Python environment, to detect packages with missing dependencies and other issues
+          --system: Show a package in the system Python environment
+          -f, --files: Show the full list of installed files for each package
+          -p, --python=: The Python interpreter to find the package in.
+          -t, --target=: Show a package from the specified `--target` directory
+      - name: sync
+        description: Sync an environment with a `requirements.txt` or `pylock.toml` file
+        flags:
+          --all-extras: Include all optional dependencies
+          --allow-empty-requirements: Allow sync of empty requirements, which will clear the environment of all packages
+          --break-system-packages: Allow uv to modify an `EXTERNALLY-MANAGED` Python installation
+          --build&: ""
+          --build-constraint=*&: Constrain build dependencies using the given requirements files when building source distributions
+          --build-isolation&: ""
+          --check: Check whether the environment matches the requirements without modifying it
+          --client-cert=&: ""
+          --compile&: Compile Python files to bytecode after installation
+          --compile-bytecode: Compile Python files to bytecode after installation
+          --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --config=&: ""
+          --constraint=*&: Constrain versions using the given requirements files
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --dry-run: Perform a dry run, i.e., don't actually install anything but resolve the dependencies and print the resulting plan
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --extra=*: Include optional dependencies from the specified extra name; may be provided more than once
+          --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --group=*: Install the specified dependency group from a `pylock.toml` or `pyproject.toml`
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --link-mode=: The method to use when installing packages from the global cache
+          --no-all-extras&: ""
+          --no-allow-empty-requirements: ""
+          --no-binary=*: Don't install pre-built wheels
+          --no-break-system-packages: ""
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-config&: ""
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-refresh&: ""
+          --no-reinstall&: ""
+          --no-require-hashes&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-strict&: ""
+          --no-system&: ""
+          --no-verify-hashes: Disable validation of hashes in the requirements file
+          --only-binary=*: Only use pre-built wheels; don't build source distributions
+          --output-format=:
+            description: Select the output format
+            default: text
+          --pip-args=&: ""
+          --prefix=: Install packages into `lib`, `bin`, and other top-level folders under the specified directory, as if a virtual environment were present at that location
+          --python-executable=&: ""
+          --python-platform=: The platform for which requirements should be installed
+          --python-version=: The minimum Python version that should be supported by the requirements (e.g., `3.7` or `3.7.9`)
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+          --require-hashes: Require a matching hash for each requirement
+          --strict: Validate the Python environment after completing the installation, to detect packages with missing dependencies or other issues
+          --system: Install packages into the system Python environment
+          --torch-backend=: The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`)
+          --user&: ""
+          --verify-hashes&: ""
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -a, --ask&: ""
+          -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building source distributions
+          -c, --constraints=*: Constrain versions using the given requirements files
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter into which packages should be installed.
+          -t, --target=: Install packages into the specified directory, rather than into the virtual or system Python environment. The packages will be installed at the top-level of the directory
+      - name: tree
+        description: Display the dependency tree for an environment
+        flags:
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --disable-pip-version-check&: ""
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --invert: Show the reverse dependencies for the given package. This flag will invert the tree and display the packages that depend on the given package
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --no-dedupe: Do not de-duplicate repeated dependencies. Usually, when a package has already displayed its dependencies, further occurrences will not re-display its dependencies, and will include a (*) to indicate it has already been shown. This flag will cause those duplicates to be repeated
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-strict&: ""
+          --no-system&: ""
+          --outdated: Show the latest available version of each package in the tree
+          --package=*: Display only the specified packages
+          --prune=*: Prune the given package from the display of the dependency tree
+          --reverse&: Show the reverse dependencies for the given package. This flag will invert the tree and display the packages that depend on the given package
+          --show-sizes: Show compressed wheel sizes for packages in the tree
+          --show-version-specifiers: Show the version constraint(s) imposed on each package
+          --strict: Validate the Python environment, to detect packages with missing dependencies and other issues
+          --system: List packages in the system Python environment
+          -d, --depth=:
+            description: Maximum display depth of the dependency tree
+            default: "255"
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter for which packages should be listed.
+      - name: uninstall
+        description: Uninstall packages from an environment
+        flags:
+          --break-system-packages: Allow uv to modify an `EXTERNALLY-MANAGED` Python installation
+          --disable-pip-version-check&: ""
+          --dry-run: Perform a dry run, i.e., don't actually uninstall anything but print the resulting plan
+          --keyring-provider=: Attempt to use `keyring` for authentication for remote requirements files
+          --no-break-system-packages: ""
+          --no-system&: ""
+          --prefix=: Uninstall packages from the specified `--prefix` directory
+          --requirement=*&: Uninstall the packages listed in the given files
+          --system: Use the system Python to uninstall packages
+          -p, --python=: The Python interpreter from which packages should be uninstalled.
+          -r, --requirements=*: Uninstall the packages listed in the given files
+          -t, --target=: Uninstall packages from the specified `--target` directory
+          -y, --yes&: Don't ask for confirmation of uninstall deletions
+  - name: publish
+    description: Upload distributions to an index
+    flags:
+      --check-url=: Check an index URL for existing files to skip duplicate uploads
+      --dry-run: Perform a dry run without uploading files
+      --index=: The name of an index in the configuration to use for publishing.
+      --keyring-provider=: Attempt to use `keyring` for authentication for remote requirements files
+      --no-attestations: Do not upload attestations for the published files
+      --publish-url=: The URL of the upload endpoint (not the index URL)
+      --skip-existing&: ""
+      --trusted-publishing=: Configure trusted publishing
+      -p, --password=: The password for the upload
+      -t, --token=: The token for the upload
+      -u, --username=: The username for the upload
+  - name: python
+    description: Manage Python versions and installations
+    commands:
+      - name: dir
+        description: Show the uv Python installation directory
+        flags:
+          --bin: Show the directory into which `uv python` will install Python executables.
+      - name: find
+        description: Search for a Python installation
+        flags:
+          --no-project: Avoid discovering a project or workspace
+          --no-system&: ""
+          --no_workspace&: Avoid discovering a project or workspace
+          --python-downloads-json-url=: URL pointing to JSON of custom Python installations
+          --resolve-links: Resolve symlinks in the output path
+          --script=: Find the environment for a Python script, rather than the current project
+          --show-version: Show the Python version that would be used instead of the path to the interpreter
+          --system: Only find system Python interpreters
+      - name: install
+        description: Download and install Python versions
+        flags:
+          --bin&: Install a Python executable into the `bin` directory
+          --compile&: Compile Python's standard library to bytecode after installation
+          --compile-bytecode: Compile Python's standard library to bytecode after installation
+          --default: Use as the default Python version
+          --mirror=: Set the URL to use as the source for downloading Python installations
+          --no-bin: Do not install a Python executable into the `bin` directory
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-registry: Do not register the Python installation in the Windows registry
+          --pypy-mirror=: Set the URL to use as the source for downloading PyPy installations
+          --python-downloads-json-url=: URL pointing to JSON of custom Python installations
+          --registry&: Register the Python installation in the Windows registry
+          -U, --upgrade: Upgrade existing Python installations to the latest patch version
+          -f, --force: Replace existing Python executables during installation
+          -i, --install-dir=: The directory to store the Python installation in
+          -r, --reinstall: Reinstall the requested Python version, if it's already installed
+      - name: list
+        aliases:
+          - ls
+        description: List the available Python installations
+        flags:
+          --all-arches: List Python downloads for all architectures
+          --all-platforms: List Python downloads for all platforms
+          --all-versions: List all Python versions, including old patch versions
+          --all_architectures&: List Python downloads for all architectures
+          --only-downloads: Only show available Python downloads
+          --only-installed: Only show installed Python versions
+          --output-format=:
+            description: Select the output format
+            default: text
+          --python-downloads-json-url=: URL pointing to JSON of custom Python installations
+          --show-urls: Show the URLs of available Python downloads
+      - name: pin
+        description: Pin to a specific Python version
+        flags:
+          --global: Update the global Python version pin
+          --no-project: Avoid validating the Python pin is compatible with the project or workspace
+          --no-resolved&: ""
+          --no-workspace&: Avoid validating the Python pin is compatible with the project or workspace
+          --python-downloads-json-url=: URL pointing to JSON of custom Python installations
+          --resolved: Write the resolved Python interpreter path instead of the request
+          --rm: Remove the Python version pin
+      - name: uninstall
+        description: Uninstall Python versions
+        flags:
+          --all: Uninstall all managed Python versions
+          -i, --install-dir=: The directory where the Python was installed
+      - name: update-shell
+        aliases:
+          - ensurepath
+        description: Ensure that the Python executable directory is on the `PATH`
+      - name: upgrade
+        description: Upgrade installed Python versions
+        flags:
+          --compile&: Compile Python's standard library to bytecode after installation
+          --compile-bytecode: Compile Python's standard library to bytecode after installation
+          --mirror=: Set the URL to use as the source for downloading Python installations
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --pypy-mirror=: Set the URL to use as the source for downloading PyPy installations
+          --python-downloads-json-url=: URL pointing to JSON of custom Python installations
+          -i, --install-dir=: The directory Python installations are stored in
+          -r, --reinstall: Reinstall the latest Python patch, if it's already installed
+  - name: remove
+    description: Remove dependencies from the project
+    flags:
+      --active: Prefer the active virtual environment over the project's virtual environment
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --compile&: Compile Python files to bytecode after installation
+      --compile-bytecode: Compile Python files to bytecode after installation
+      --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev: 'Remove the packages from the development dependency group [env: UV_DEV=]'
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Remove dependencies without re-locking the project [env: UV_FROZEN=]'
+      --group=: Remove the packages from the specified dependency group
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-active&: Prefer project's virtual environment over an active environment
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-compile&: ""
+      --no-compile-bytecode&: ""
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-refresh&: ""
+      --no-reinstall&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-sync: 'Avoid syncing the virtual environment after re-locking the project [env: UV_NO_SYNC=]'
+      --no-upgrade&: ""
+      --optional=: Remove the packages from the project's optional dependencies for the specified extra
+      --package=: Remove the dependencies from a specific package in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --script=: Remove the dependency from the specified Python script, rather than from a project
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use for resolving and syncing.
+  - name: run
+    description: Run a command or script
+    flags:
+      --active: Prefer the active virtual environment over the project's virtual environment
+      --all-extras: Include all optional dependencies
+      --all-groups: Include dependencies from all dependency groups
+      --all-packages: Run the command with all workspace members installed
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --compile&: Compile Python files to bytecode after installation
+      --compile-bytecode: Compile Python files to bytecode after installation
+      --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev&: 'Include the development dependency group [env: UV_DEV=]'
+      --editable&: Install any non-editable dependencies, including the project and any workspace members, as editable
+      --env-file=*: Load environment variables from a `.env` file
+      --exact: Perform an exact sync, removing extraneous packages
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --extra=*: Include optional dependencies from the specified extra name
+      --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Run without updating the `uv.lock` file [env: UV_FROZEN=]'
+      --group=*: Include dependencies from the specified dependency group
+      --gui-script: Run the given path as a Python GUI script
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --inexact&: Do not remove extraneous packages present in the environment
+      --isolated: 'Run the command in an isolated virtual environment [env: UV_ISOLATED=]'
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --max-recursion-depth=&: Number of times that `uv run` will allow recursive invocations
+      --no-active&: Prefer project's virtual environment over an active environment
+      --no-all-extras&: ""
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-compile&: ""
+      --no-compile-bytecode&: ""
+      --no-default-groups: Ignore the default dependency groups
+      --no-dev: 'Disable the development dependency group [env: UV_NO_DEV=]'
+      --no-editable: 'Install any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]'
+      --no-editable-package=*: Install the specified editable packages as non-editable
+      --no-env-file: 'Avoid reading environment variables from a `.env` file [env: UV_NO_ENV_FILE=]'
+      --no-exact&: Do not remove extraneous packages present in the environment
+      --no-extra=*: Exclude the specified optional dependencies, if `--all-extras` is supplied
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-group=*: 'Disable the specified dependency group [env: `UV_NO_GROUP`=]'
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-project: Avoid discovering the project or workspace
+      --no-refresh&: ""
+      --no-reinstall&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-sync: 'Avoid syncing the virtual environment [env: UV_NO_SYNC=]'
+      --no-upgrade&: ""
+      --no_workspace&: Avoid discovering the project or workspace
+      --only-dev: Only include the development dependency group
+      --only-group=*: Only include dependencies from the specified dependency group
+      --package=: Run the command in a specific package in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --python-platform=: The platform for which requirements should be installed
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --show-resolution&: 'Whether to show resolver and installer output from any environment modifications [env: UV_SHOW_RESOLUTION=]'
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      --with-editable=*: Run with the given packages installed in editable mode
+      --with-requirements=*: Run with the packages listed in the given files
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -m, --module: Run a Python module
+      -p, --python=: The Python interpreter to use for the run environment.
+      -s, --script: Run the given path as a Python script
+      -w, --with=*: Run with the given packages installed
+  - name: self
+    description: Manage the uv executable
+    commands:
+      - name: update
+        description: Update uv
+        flags:
+          --dry-run: Run without performing the update
+          --token=: A GitHub token for authentication. A token is not required but can be used to reduce the chance of encountering rate limits
+      - name: version
+        description: Display uv's version
+        flags:
+          --output-format=:
+            default: text
+          --short: Only print the version
+  - name: sync
+    description: Update the project's environment
+    flags:
+      --active: Sync dependencies to the active virtual environment
+      --all-extras: Include all optional dependencies
+      --all-groups: Include dependencies from all dependency groups
+      --all-packages: Sync all packages in the workspace
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --check: Check if the Python environment is synchronized with the project
+      --compile&: Compile Python files to bytecode after installation
+      --compile-bytecode: Compile Python files to bytecode after installation
+      --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev&: 'Include the development dependency group [env: UV_DEV=]'
+      --dry-run: Perform a dry run, without writing the lockfile or modifying the project environment
+      --editable&: Install any non-editable dependencies, including the project and any workspace members, as editable
+      --exact&: Perform an exact sync, removing extraneous packages
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --extra=*: Include optional dependencies from the specified extra name
+      --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Sync without updating the `uv.lock` file [env: UV_FROZEN=]'
+      --group=*: Include dependencies from the specified dependency group
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --inexact: Do not remove extraneous packages present in the environment
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-active&: Prefer project's virtual environment over an active environment
+      --no-all-extras&: ""
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-check&: ""
+      --no-compile&: ""
+      --no-compile-bytecode&: ""
+      --no-default-groups: Ignore the default dependency groups
+      --no-dev: 'Disable the development dependency group [env: UV_NO_DEV=]'
+      --no-editable: 'Install any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]'
+      --no-editable-package=*: Install the specified editable packages as non-editable
+      --no-exact&: Do not remove extraneous packages present in the environment
+      --no-extra=*: Exclude the specified optional dependencies, if `--all-extras` is supplied
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-group=*: 'Disable the specified dependency group [env: `UV_NO_GROUP`=]'
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-install-local: 'Do not install local path dependencies [env: UV_NO_INSTALL_LOCAL=]'
+      --no-install-package=*: Do not install the given package(s)
+      --no-install-project: 'Do not install the current project [env: UV_NO_INSTALL_PROJECT=]'
+      --no-install-workspace: 'Do not install any workspace members, including the root project [env: UV_NO_INSTALL_WORKSPACE=]'
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-refresh&: ""
+      --no-reinstall&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-upgrade&: ""
+      --only-dev: Only include the development dependency group
+      --only-group=*: Only include dependencies from the specified dependency group
+      --only-install-local&: Only install local path dependencies
+      --only-install-package=*&: Only install the given package(s)
+      --only-install-project&: Only install the current project
+      --only-install-workspace&: Only install workspace members, including the root project
+      --output-format=:
+        description: Select the output format
+        default: text
+      --package=*: Sync for specific packages in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --python-platform=: The platform for which requirements should be installed
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --script=: Sync the environment for a Python script, rather than the current project
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use for the project environment.
+  - name: tool
+    description: Run and install commands provided by Python packages
+    commands:
+      - name: audit
+        description: Audit installed tools and their dependencies
+        flags:
+          --all: Audit all installed tools
+          --ignore-until-fixed=*: Ignore a vulnerability by ID, but only while no fix is available
+          --ignore=*: Ignore a vulnerability by ID
+          --output-format=:
+            description: Select the output format
+            default: text
+          --service-format=:
+            description: The service format to use for vulnerability lookups
+            default: osv
+          --service-url=: The URL to vulnerability service API endpoint
+      - name: dir
+        description: Show the path to the uv tools directory
+        flags:
+          --bin: Show the directory into which `uv tool` will install executables.
+      - name: install
+        description: Install commands provided by a Python package
+        flags:
+          --binary&: ""
+          --build&: ""
+          --build-constraint=*&: Constrain build dependencies using the given requirements files when building source distributions
+          --build-isolation&: ""
+          --compile&: Compile Python files to bytecode after installation
+          --compile-bytecode: Compile Python files to bytecode after installation
+          --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --constraint=*&: Constrain versions using the given requirements files
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --exclude=*&: Exclude packages from resolution using the given requirements files
+          --excludes=*: Exclude packages from resolution using the given requirements files
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --force: Force installation of the tool
+          --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --from=&: The package to install commands from
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --lfs: Whether to use Git LFS when adding a dependency from Git
+          --link-mode=: The method to use when installing packages from the global cache
+          --no-binary: Don't install pre-built wheels
+          --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-refresh&: ""
+          --no-reinstall&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-upgrade&: ""
+          --override=*&: Override versions using the given requirements files
+          --overrides=*: Override versions using the given requirements files
+          --pre&: ""
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --python-platform=: The platform for which requirements should be installed
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --torch-backend=: The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`)
+          --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          --with-editable=*: Include the given packages in editable mode
+          --with-executables-from=*: Install executables from the following packages
+          --with-requirements=*: Run with the packages listed in the given files
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building source distributions
+          -c, --constraints=*: Constrain versions using the given requirements files
+          -e, --editable: Install the target package in editable mode, such that changes in the package's source directory are reflected without reinstallation
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter to use to build the tool environment.
+          -w, --with=*: Include the following additional requirements
+      - name: list
+        aliases:
+          - ls
+        description: List installed tools
+        flags:
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --no-outdated&: ""
+          --no-python-downloads&: ""
+          --outdated: List outdated tools
+          --python-preference=&: ""
+          --show-extras: Whether to display the extra requirements installed with each tool
+          --show-paths: Whether to display the path to each tool environment and installed executable
+          --show-python: Whether to display the Python version associated with each tool
+          --show-version-specifiers: Whether to display the version specifier(s) used to install each tool
+          --show-with: Whether to display the additional requirements installed with each tool
+      - name: run
+        description: Run a command provided by a Python package
+        flags:
+          --binary&: ""
+          --build&: ""
+          --build-constraint=*&: Constrain build dependencies using the given requirements files when building source distributions
+          --build-isolation&: ""
+          --compile&: Compile Python files to bytecode after installation
+          --compile-bytecode: Compile Python files to bytecode after installation
+          --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --constraint=*&: Constrain versions using the given requirements files
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --env-file=*: Load environment variables from a `.env` file
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --from=: Use the given package to provide the command
+          --generate-shell-completion=&: ""
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --isolated: 'Run the tool in an isolated virtual environment, ignoring any already-installed tools [env: UV_ISOLATED=]'
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --lfs: Whether to use Git LFS when adding a dependency from Git
+          --link-mode=: The method to use when installing packages from the global cache
+          --no-binary: Don't install pre-built wheels
+          --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-env-file: 'Avoid reading environment variables from a `.env` file [env: UV_NO_ENV_FILE=]'
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-refresh&: ""
+          --no-reinstall&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-upgrade&: ""
+          --override=*&: Override versions using the given requirements files
+          --overrides=*: Override versions using the given requirements files
+          --pre&: ""
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --python-platform=: The platform for which requirements should be installed
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --show-resolution&: 'Whether to show resolver and installer output from any environment modifications [env: UV_SHOW_RESOLUTION=]'
+          --torch-backend=: The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`)
+          --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          --with-editable=*: Run with the given packages installed in editable mode
+          --with-requirements=*: Run with the packages listed in the given files
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building source distributions
+          -c, --constraints=*: Constrain versions using the given requirements files
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter to use to build the run environment.
+          -w, --with=*: Run with the given packages installed
+      - name: uninstall
+        description: Uninstall a tool
+        flags:
+          --all: Uninstall all tools
+      - name: update-shell
+        aliases:
+          - ensurepath
+        description: Ensure that the tool executable directory is on the `PATH`
+      - name: upgrade
+        aliases:
+          - update
+        description: Upgrade installed tools
+        flags:
+          --all: Upgrade all tools
+          --binary&: ""
+          --build&: ""
+          --build-isolation&: ""
+          --compile&: Compile Python files to bytecode after installation
+          --compile-bytecode: Compile Python files to bytecode after installation
+          --config-setting-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --link-mode=: The method to use when installing packages from the global cache
+          --no-binary: Don't install pre-built wheels
+          --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-reinstall&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --pre&: ""
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --python-platform=: The platform for which requirements should be installed
+          --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --upgrade-group=*&: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*&: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade&: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: Upgrade a tool, and specify it to use the given Python interpreter to build its environment.
+      - name: uvx
+        description: Run a command provided by a Python package.
+        hidden: true
+        flags:
+          --binary&: ""
+          --build&: ""
+          --build-constraint=*&: Constrain build dependencies using the given requirements files when building source distributions
+          --build-isolation&: ""
+          --compile&: Compile Python files to bytecode after installation
+          --compile-bytecode: Compile Python files to bytecode after installation
+          --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --constraint=*&: Constrain versions using the given requirements files
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --env-file=*: Load environment variables from a `.env` file
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --from=: Use the given package to provide the command
+          --generate-shell-completion=&: ""
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --isolated: 'Run the tool in an isolated virtual environment, ignoring any already-installed tools [env: UV_ISOLATED=]'
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --lfs: Whether to use Git LFS when adding a dependency from Git
+          --link-mode=: The method to use when installing packages from the global cache
+          --no-binary: Don't install pre-built wheels
+          --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+          --no-compile&: ""
+          --no-compile-bytecode&: ""
+          --no-env-file: 'Avoid reading environment variables from a `.env` file [env: UV_NO_ENV_FILE=]'
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-refresh&: ""
+          --no-reinstall&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-upgrade&: ""
+          --override=*&: Override versions using the given requirements files
+          --overrides=*: Override versions using the given requirements files
+          --pre&: ""
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --python-platform=: The platform for which requirements should be installed
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+          --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --show-resolution&: 'Whether to show resolver and installer output from any environment modifications [env: UV_SHOW_RESOLUTION=]'
+          --torch-backend=: The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`)
+          --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          --with-editable=*: Run with the given packages installed in editable mode
+          --with-requirements=*: Run with the packages listed in the given files
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -V, --version: Display the uvx version
+          -b, --build-constraints=*: Constrain build dependencies using the given requirements files when building source distributions
+          -c, --constraints=*: Constrain versions using the given requirements files
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter to use to build the run environment.
+          -w, --with=*: Run with the given packages installed
+  - name: tree
+    description: Display the project's dependency tree
+    flags:
+      --all-groups: Include dependencies from all dependency groups
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dev&: 'Include the development dependency group [env: UV_DEV=]'
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --format=:
+        description: The format in which to display the dependency graph
+        default: text
+      --frozen: 'Display the requirements without locking the project [env: UV_FROZEN=]'
+      --group=*: Include dependencies from the specified dependency group
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --invert: Show the reverse dependencies for the given package. This flag will invert the tree and display the packages that depend on the given package
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-dedupe: Do not de-duplicate repeated dependencies. Usually, when a package has already displayed its dependencies, further occurrences will not re-display its dependencies, and will include a (*) to indicate it has already been shown. This flag will cause those duplicates to be repeated
+      --no-default-groups: Ignore the default dependency groups
+      --no-dev: 'Disable the development dependency group [env: UV_NO_DEV=]'
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-group=*: 'Disable the specified dependency group [env: `UV_NO_GROUP`=]'
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-upgrade&: ""
+      --only-dev: Only include the development dependency group
+      --only-group=*: Only include dependencies from the specified dependency group
+      --outdated: Show the latest available version of each package in the tree
+      --package=*: Display only the specified packages
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --prune=*: Prune the given package from the display of the dependency tree
+      --python-platform=: The platform to use when filtering the tree
+      --python-version=: The Python version to use when filtering the tree
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --reverse&: Show the reverse dependencies for the given package. This flag will invert the tree and display the packages that depend on the given package
+      --script=: Show the dependency tree the specified PEP 723 Python script, rather than the current project
+      --show-sizes: Show compressed wheel sizes for packages in the tree
+      --universal: Show a platform-independent dependency tree
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -d, --depth=:
+        description: Maximum display depth of the dependency tree
+        default: "255"
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use for locking and filtering.
+  - name: upgrade
+    description: Upgrade a dependency in the project
+    hidden: true
+    flags:
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --exclude=*: Exclude the named package from upgrades
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+  - name: venv
+    aliases:
+      - virtualenv
+      - v
+    description: Create a virtual environment
+    flags:
+      --allow-existing: Preserve any existing files or directories at the target path
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --force: Allow `--clear` to remove a non-virtual environment directory
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --no-clear&: Fail without prompting if any existing files or directories are present at the target path
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-pip&: ""
+      --no-project: Avoid discovering a project or workspace
+      --no-refresh&: ""
+      --no-relocatable&: Don't make the virtual environment relocatable
+      --no-seed&: ""
+      --no-setuptools&: ""
+      --no-system&: This flag is included for compatibility only, it has no effect
+      --no-wheel&: ""
+      --no-workspace&: Avoid discovering a project or workspace
+      --prompt=: Provide an alternative prompt prefix for the virtual environment.
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --relocatable: 'Make the virtual environment relocatable [env: UV_VENV_RELOCATABLE=]'
+      --seed: 'Install seed packages (one or more of: `pip`, `setuptools`, and `wheel`) into the virtual environment [env: UV_VENV_SEED=]'
+      --system&: Ignore virtual environments when searching for the Python interpreter
+      --system-site-packages: Give the virtual environment access to the system site packages directory
+      -c, --clear: 'Remove any existing files or directories at the target path [env: UV_VENV_CLEAR=]'
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use for the virtual environment.
+  - name: version
+    description: Read or update the project's version
+    flags:
+      --active: Prefer the active virtual environment over the project's virtual environment
+      --binary&: ""
+      --build&: ""
+      --build-isolation&: ""
+      --bump=*: Update the project version using the given semantics
+      --compile&: Compile Python files to bytecode after installation
+      --compile-bytecode: Compile Python files to bytecode after installation
+      --config-settings-package=*: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+      --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+      --dry-run: Don't write a new version to the `pyproject.toml`
+      --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+      --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+      --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+      --force-reinstall&: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+      --frozen: 'Update the version without re-locking the project [env: UV_FROZEN=]'
+      --index-strategy=: The strategy to use when resolving against multiple index URLs
+      --index=*: The indexes to use when resolving dependencies, in addition to the default index
+      --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+      --link-mode=: The method to use when installing packages from the global cache
+      --locked: 'Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]'
+      --no-active&: Prefer project's virtual environment over an active environment
+      --no-binary: Don't install pre-built wheels
+      --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+      --no-build: Don't build source distributions
+      --no-build-isolation: Disable isolation when building source distributions
+      --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+      --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+      --no-compile&: ""
+      --no-compile-bytecode&: ""
+      --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+      --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+      --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+      --no-refresh&: ""
+      --no-reinstall&: ""
+      --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+      --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+      --no-sync: 'Avoid syncing the virtual environment after re-locking the project [env: UV_NO_SYNC=]'
+      --no-upgrade&: ""
+      --output-format=:
+        description: The format of the output
+        default: text
+      --package=: Update the version of a specific package in the workspace
+      --pre&: ""
+      --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+      --prerelease=: The strategy to use when considering pre-release versions
+      --refresh: Refresh all cached data
+      --refresh-package=*: Refresh cached data for a specific package
+      --reinstall: Reinstall all packages, regardless of whether they're already installed. Implies `--refresh`
+      --reinstall-package=*: Reinstall a specific package, regardless of whether it's already installed. Implies `--refresh-package`
+      --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+      --short: Only show the version
+      --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+      -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+      -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+      -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+      -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+      -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+      -p, --python=: The Python interpreter to use for resolving and syncing.
+  - name: workspace
+    description: Inspect uv workspaces
+    commands:
+      - name: dir
+        description: Display the path of a workspace member
+        flags:
+          --package=: Display the path to a specific package in the workspace
+      - name: list
+        description: List the members of a workspace
+        flags:
+          --paths: Show paths instead of names
+          --scripts: List all standalone scripts with inline metadata in the workspace
+      - name: metadata
+        description: View metadata about the current workspace
+        flags:
+          --active: Sync dependencies to the active virtual environment
+          --binary&: ""
+          --build&: ""
+          --build-isolation&: ""
+          --config-settings-package=*&: Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+          --config-settings=*&: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          --default-index=: 'The default package index (by default: <https://pypi.org/simple>)'
+          --exact: Perform an exact sync, removing extraneous packages
+          --exclude-newer-package=*: Limit candidate packages for specific packages to those that were uploaded prior to the given date
+          --exclude-newer=: Limit candidate packages to those that were uploaded prior to the given date
+          --extra-index-url=*: '(Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url`'
+          --fork-strategy=: The strategy to use when selecting multiple versions of a given package across Python versions and platforms
+          --frozen: 'Assert that a `uv.lock` exists without checking if it is up-to-date [env: UV_FROZEN=]'
+          --index-strategy=: The strategy to use when resolving against multiple index URLs
+          --index=*: The indexes to use when resolving dependencies, in addition to the default index
+          --keyring-provider=: Attempt to use `keyring` for authentication for index URLs
+          --link-mode=: The method to use when installing packages from the global cache
+          --locked: 'Check if the lockfile is up-to-date [env: UV_LOCKED=]'
+          --no-binary: Don't install pre-built wheels
+          --no-binary-package=*: 'Don''t install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]'
+          --no-build: Don't build source distributions
+          --no-build-isolation: Disable isolation when building source distributions
+          --no-build-isolation-package=*: Disable isolation when building source distributions for a specific package
+          --no-build-package=*: 'Don''t build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]'
+          --no-frozen&: Disable frozen mode, overriding `UV_FROZEN`
+          --no-index: Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+          --no-locked&: Disable locked mode, overriding `UV_LOCKED`
+          --no-refresh&: ""
+          --no-sources: Ignore the `tool.uv.sources` table when resolving dependencies. Used to lock against the standards-compliant, publishable package metadata, as opposed to using any workspace, Git, URL, or local path sources
+          --no-sources-package=*: 'Don''t use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]'
+          --no-upgrade&: ""
+          --pre&: ""
+          --prerelease-package=*: The strategy to use when considering pre-release versions for a specific package
+          --prerelease=: The strategy to use when considering pre-release versions
+          --refresh: Refresh all cached data
+          --refresh-package=*: Refresh cached data for a specific package
+          --resolution=: The strategy to use when selecting between the different compatible versions for a given package requirement
+          --script=: View metadata for the specified PEP 723 Python script, rather than the current workspace
+          --sync: Sync the environment to include module ownership metadata in the output
+          --upgrade-group=*: Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+          -C, --config-setting=*: Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+          -P, --upgrade-package=*: Allow upgrades for a specific package, ignoring pinned versions in any existing output file. Implies `--refresh-package`
+          -U, --upgrade: Allow package upgrades, ignoring pinned versions in any existing output file. Implies `--refresh`
+          -f, --find-links=*: Locations to search for candidate distributions, in addition to those found in the registry indexes
+          -i, --index-url=: '(Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>)'
+          -p, --python=: The Python interpreter to use during resolution.
+documentation:
+  command: https://github.com/astral-sh/uv
